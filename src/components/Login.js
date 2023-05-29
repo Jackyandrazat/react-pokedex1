@@ -16,13 +16,17 @@ export default function Login() {
   
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post("https://reqres.in/api/login", { email, password })
+        // axios.post("https://reqres.in/api/login", { email, password }) // from api pokeAPi
+        axios.post("http://localhost:4000/login", { email, password }) // from myapi
           .then((response) => {
-            localStorage.setItem("authToken", true);
+            console.log("token ",response.data.token);
+            const token = response.data.token;
+            localStorage.setItem("authToken", token);
             window.location.href = "/"
           })
         .catch((error) => {
-          console.log(error);
+            window.alert("Please Valid Username and Password", error);
+            console.log(error);
         });
     };
     return (
@@ -46,7 +50,7 @@ export default function Login() {
                                 <label className="label">
                                     <span className="label-text text-base-100">Password</span>
                                 </label>
-                                <input type="text" placeholder="password" className="input input-bordered" value={password} onChange={handlePasswordChange} />
+                                <input type="password" placeholder="password" className="input input-bordered" value={password} onChange={handlePasswordChange} />
                                 <label className="label">
                                     <a href="#" className="label-text-alt text-base-100 link link-hover">Forgot password?</a>
                                 </label>
