@@ -26,7 +26,7 @@ function App() {
           <Route path="/videopage" element={<VideoPage/>} />
           <Route path="/login" element={isLoggedIn() ? <Navigate to="/" /> : <LoginPage />} />
           <Route path="/register" element={<RegisterPage/>} />
-          <Route path="/detail/:name" element={<DetailPage/>} />
+          <Route path="/detail/:id" element={<DetailPage/>} />
         </Routes>
       </Router>
     </>

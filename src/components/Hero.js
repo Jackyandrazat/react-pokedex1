@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 export default function Hero() {
   const navigate = useNavigate();
 
-  const onPress = () => {
-    navigate('/mypokemons')
+  const onPress = () => { 
+    navigate('/listpokemons')
   }
 
   return (

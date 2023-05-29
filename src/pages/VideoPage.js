@@ -5,7 +5,7 @@ import HeroVideo from '../components/HeroVideo'
 
 function VideoPage() {
   return (
-    <div>
+    <div className='bg-secondaryColor'>
     <Navbar />
     <HeroVideo />
     <Footer />
