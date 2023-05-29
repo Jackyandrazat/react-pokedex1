@@ -64,18 +64,18 @@ export default function MyPokemons() {
                 <h1 className="text-base-100 py-5 font-bold text-5xl">My Pokemons</h1>
 
                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-                    {myPokemon.map((pokemon, id) => (
-                        <a key={id} href={pokemon.href} className="group relative">
+                    {myPokemon.map((item, index) => (
+                        <a key={index} href={item.href} className="group relative">
                             <div className="aspect-h-1 aspect-w-1 w-full my-8 overflow-hidden rounded-lg xl:aspect-h-8 xl:aspect-w-7">
                                 <img
-                                    src={pokemon.image}
-                                    alt={pokemon.name}
+                                    src={item.avatar_url}
+                                    alt="img"
                                     className="object-contain h-48 w-96 lg:h-90 lg:w-90"
                                 />
                             </div>
-                            <h3 className="mt-4 text-lg text-gray-900 font-bold text-base-100">{pokemon.name}</h3>
+                            <h3 className="mt-4 text-lg text-gray-900 font-bold text-base-100">{item.name_pokemon}</h3>
                             <div className="relative">
-                                <button onClick={() => deletePokemon(pokemon)} className="btn absolute btn-sm top-0 right-5 bg-thirdColor hover:bg-fourthColor hover:text-neutral-900 border-0">Release</button>
+                                <button onClick={() => deletePokemon(item)} className="btn absolute btn-sm top-0 right-5 bg-thirdColor hover:bg-fourthColor hover:text-neutral-900 border-0">Release</button>
                             </div>
                         </a>
                     ))}
