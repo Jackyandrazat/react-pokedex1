@@ -12,13 +12,13 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://reqres.in/api/register', {
+      const response = await axios.post('http://localhost:4000/users', {
         email: email,
         password: password
       });
       console.log(response); // Menampilkan respons dari server\
       localStorage.setItem('authToken', true);
-
+      window.alert("Register Berhasil", response);
       setIsRegistered(true);
     }
      catch (error) {
@@ -27,7 +27,7 @@ export default function Register() {
   };
 
   if (isRegistered) {
-    return <Navigate to="/" />
+    return <Navigate to="/login" />
   }
 
   return (
