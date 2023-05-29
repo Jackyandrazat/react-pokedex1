@@ -26,7 +26,8 @@ function addPokemon(pokemons) {
 
 
 function PokemonDetail() {
-    const { name } = useParams();
+    const { id } = useParams();
+    console.log("id params: ",id);
     // console.log("name", name)
     //   console.log("id" , id)
     const [pokemons, setPokemon] = useState(null);
@@ -39,30 +40,23 @@ function PokemonDetail() {
     const getPokemonDetail = async () => {
         try {
             // Mengambil data pokemon
-            const pokemonResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
-            const pokemonData = pokemonResponse.data;
+            const pokemonResponse = await axios.get(`http://localhost:4000/pokemons/${id}`);
+            const pokemonData = pokemonResponse.data.data;
+            console.log("pokemons data :", pokemonData);
 
-            // Mendapatkan ability dari pokemon
-            const abilityUrls = pokemonData.abilities.map(ability => ability.ability.url);
-            const abilityResponses = await Promise.all(abilityUrls.map(url => axios.get(url)));
-            const abilities = abilityResponses.map(response => response.data);
+            // // Mendapatkan ability dari pokemon
+            // const abilityUrls = pokemonData.abilities.map(ability => ability.ability.url);
+            // const abilityResponses = await Promise.all(abilityUrls.map(url => axios.get(url)));
+            // const abilities = abilityResponses.map(response => response.data);
 
-            const pokemonImage = pokemonResponse.data.sprites.other.dream_world.front_default;
-            const pokemonWeight = pokemonData.weight;
-            const pokemonHeight = pokemonData.height;
-            const pokemonMove = pokemonData.moves.map(move => move.move.name);
+            // const pokemonImage = pokemonResponse.data.sprites.other.dream_world.front_default;
+            // const pokemonWeight = pokemonData.weight;
+            // const pokemonHeight = pokemonData.height;
+            // const pokemonMove = pokemonData.moves.map(move => move.move.name);
 
             
         // Mengupdate state pokemon
-            setPokemon({
-                name: pokemonData.name,
-                abilities: abilities,
-                image: pokemonImage,
-                weight : pokemonWeight,
-                height : pokemonHeight, 
-                moves : pokemonMove
-                // Tambahkan data lain yang Anda inginkan
-            });
+            setPokemon(pokemonData);
         } catch (error) {
             console.log(error);
         }
@@ -75,34 +69,35 @@ function PokemonDetail() {
 
     return (
         <div>
-            <div className="bg-white">
+        {pokemons.map((item, index) => (
+            <div key={index} className="bg-white">
                 <div className="container mx-auto pt-6">
                     {/* Image gallery */}
                     <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
                         <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
                             <img
-                                src={pokemons.image}
-                                alt={pokemons.image}
+                                src={item.avatar_url}
+                                alt="img"
                                 className="h-full w-full object-center" />
                         </div>
                         <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
                             <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                                 <img
-                                    src={pokemons.image}
-                                    alt={pokemons.image}
+                                    src={item.avatar_url}
+                                    alt="img"
                                     className="h-full w-full object-cover object-center" />
                             </div>
                             <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                                 <img
-                                    src={pokemons.image}
-                                    alt={pokemons.image}
+                                    src={item.avatar_url}
+                                    alt="img"
                                     className="h-full w-full object-cover object-center" />
                             </div>
                         </div>
                         <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
                             <img
-                                src={pokemons.image}
-                                alt={pokemons.image}
+                                src={item.avatar_url}
+                                alt="img"
                                 className="h-full w-full object-center" />
                         </div>
                     </div>
@@ -110,7 +105,7 @@ function PokemonDetail() {
                     {/* Product info */}
                     <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
                         <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-                            <h1 className="text-2xl font-bold tracking-tight text-base-100 sm:text-3xl">{pokemons.name}</h1>
+                            <h1 className="text-2xl font-bold tracking-tight text-base-100 sm:text-3xl">{item.name_pokemon}</h1>
                         </div>
 
                         {/* Options */}
@@ -120,7 +115,7 @@ function PokemonDetail() {
                                 <button
                                     type="submit"
                                     className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-thirdColor px-8 py-3 text-base font-medium text-base-100 hover:bg-fourthColor hover:text-neutral-800 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:ring-offset-2"
-                                    onClick={() => addPokemon(pokemons)}
+                                    onClick={() => addPokemon(item)}
                                 >
                                     Add to bag
                                 </button>
@@ -134,12 +129,7 @@ function PokemonDetail() {
 
                                 <div className="text-base-100">
                                     <p className='mt-2'>Abilities</p>
-                                    {pokemons.abilities.map(ability => (
-                                        <li key={ability.name}>
-                                            <strong>{ability.name}</strong>
-                                            <p>{ability.effect_entries.find(entry => entry.language.name === 'en').effect}</p>
-                                        </li>
-                                    ))}
+                                    <h5>{item.ability_pokemon}</h5>
                                 </div>
                             </div>
 
@@ -161,15 +151,18 @@ function PokemonDetail() {
                                 <h2 className="text-sm font-medium text-base-100">Details</h2>
 
                                 <div className="mt-4 space-y-1">
-                                    <p className="text-sm text-base-100">Weight : {pokemons.weight}</p>
-                                    <p className="text-sm text-base-100">Height : {pokemons.height}</p>
-                                    <p className="text-sm text-base-100">Move : {pokemons.moves}</p>
+                                    <p className="text-sm text-base-100">
+                                    Type : {item.type_pokemon}</p>
+                                    <p className="text-sm text-base-100">
+                                    Deskripsi : {item.desckripsi_pokemon}
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        ))}
         </div>
     );
 }
