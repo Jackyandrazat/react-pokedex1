@@ -2,6 +2,8 @@ import React from 'react'
 import ListPokemonts from '../components/ListPokemonts'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ListPokemonsPage() {
     return (
@@ -11,6 +13,7 @@ export default function ListPokemonsPage() {
                 <h1 className="text-base-100 py-5 font-bold text-5xl">List Pokemons</h1>
                 <ListPokemonts />
             </div>
+            <ToastContainer />
             <Footer />
         </div>
     )
