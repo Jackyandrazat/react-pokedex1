@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 
 export default function MyPokemons() {
+    
     const [myPokemon, setMyPokemons] = useState([]);
 
 
-    const getMyPokemons = () => {
-        const savedData = JSON.parse(localStorage.getItem("myPokemon"));
-        if (savedData) {
-            setMyPokemons(savedData);
-        }
+    const getMyPokemons = async () => {
+        try {
+            const response = await axios.get('http://localhost:4000/pokemons/collection');
+            console.log('response', response.data);
+            const mypokemonList = response.data.data;
+            setMyPokemons(mypokemonList);
+          } catch (error) {
+            console.log(error);
+          }
     };
 
     useEffect(() => {
@@ -31,32 +38,17 @@ export default function MyPokemons() {
     sehingga tidak perlu mencari key di localStorage. Selain itu, kode tersebut juga membuat salinan 
     array sebelum melakukan operasi penghapusan, sehingga tidak mengubah state langsung dan lebih aman untuk digunakan. */
 
-    const deletePokemon = (pokemon) => {
-        const confirmation = window.confirm("Apakah Anda yakin ingin melepaskan Pokemon ini dari My Pokemon?");
-
-        if (confirmation) {
-            // membuat salinan array
-            const updatedMyPokemon = [...myPokemon];
-
-            // mencari index data yang akan dihapus
-            const index = updatedMyPokemon.findIndex((p) => p.id === pokemon.id);
-
-            //  kodnisi menghapus data dari array jika ditemukan
-            if (index !== -1) {
-                updatedMyPokemon.splice(index, 1);
-                //splice() adalah sebuah method built-in pada JavaScript array yang digunakan untuk menambah, menghapus, dan/atau mengganti elemen pada sebuah array. Method ini menerima dua parameter: index dan howMany, dimana index adalah posisi dari elemen yang ingin diubah dan howMany adalah jumlah elemen yang ingin diubah.
-                //mengubah array updatedMyPokemon dengan menghapus satu elemen dari array tersebut pada indeks yang ditentukan dengan nilai index
-                //elemen yang dihapus adalah elemen yang memiliki indeks yang sama dengan indeks dari pokemon yang ingin dihapus dari array.
-
-                // menyimpan array yang diperbarui ke local storage
-                localStorage.setItem("myPokemon", JSON.stringify(updatedMyPokemon));
-
-                // memperbarui state dengan array yang diperbarui
-                setMyPokemons(updatedMyPokemon);
-                alert("Pokemon berhasil dilepas dari My Pokemon!");
-            }
+    const deletePokemon = async (id) => {
+        try {
+            console.log("test id :",id);
+          const response = await axios.delete(`http://localhost:4000/pokemons/collection/${id}`);
+          console.log('response', response.data);
+          const updatedMyPokemons = response.data.data;
+          setMyPokemons(myPokemon.splice(updatedMyPokemons));
+        } catch (error) {
+          console.log(error);
         }
-    };
+      };
 
     return (
         <div className="">
@@ -64,7 +56,7 @@ export default function MyPokemons() {
                 <h1 className="text-base-100 py-5 font-bold text-5xl">My Pokemons</h1>
 
                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-                    {myPokemon.map((item, index) => (
+                    {myPokemon && myPokemon.map((item, index) => (
                         <a key={index} href={item.href} className="group relative">
                             <div className="aspect-h-1 aspect-w-1 w-full my-8 overflow-hidden rounded-lg xl:aspect-h-8 xl:aspect-w-7">
                                 <img
@@ -75,7 +67,7 @@ export default function MyPokemons() {
                             </div>
                             <h3 className="mt-4 text-lg text-gray-900 font-bold text-base-100">{item.name_pokemon}</h3>
                             <div className="relative">
-                                <button onClick={() => deletePokemon(item)} className="btn absolute btn-sm top-0 right-5 bg-thirdColor hover:bg-fourthColor hover:text-neutral-900 border-0">Release</button>
+                                <button onClick={() => deletePokemon(item.id)} className="btn absolute btn-sm top-0 right-5 bg-thirdColor hover:bg-fourthColor hover:text-neutral-900 border-0">Release</button>
                             </div>
                         </a>
                     ))}
