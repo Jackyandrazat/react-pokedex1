@@ -43,8 +43,8 @@ export default function MyPokemons() {
             console.log("test id :",id);
           const response = await axios.delete(`http://localhost:4000/pokemons/collection/${id}`);
           console.log('response', response.data);
-          const updatedMyPokemons = response.data.data;
-          setMyPokemons(myPokemon.splice(updatedMyPokemons));
+          const updatedMyPokemons = myPokemon.filter(item => item.id !== id);;
+          setMyPokemons(updatedMyPokemons);
         } catch (error) {
           console.log(error);
         }
@@ -56,7 +56,7 @@ export default function MyPokemons() {
                 <h1 className="text-base-100 py-5 font-bold text-5xl">My Pokemons</h1>
 
                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-                    {myPokemon && myPokemon.map((item, index) => (
+                    {myPokemon.map((item, index) => (
                         <a key={index} href={item.href} className="group relative">
                             <div className="aspect-h-1 aspect-w-1 w-full my-8 overflow-hidden rounded-lg xl:aspect-h-8 xl:aspect-w-7">
                                 <img
