@@ -1,5 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 export default function MyPokemons() {
@@ -42,6 +44,9 @@ export default function MyPokemons() {
         try {
             console.log("test id :",id);
           const response = await axios.delete(`http://localhost:4000/pokemons/collection/${id}`);
+          toast.success("Pokemon Delete Succes",{
+            autoClose: 500
+          })
           console.log('response', response.data);
           const updatedMyPokemons = myPokemon.filter(item => item.id !== id);;
           setMyPokemons(updatedMyPokemons);
@@ -49,6 +54,25 @@ export default function MyPokemons() {
           console.log(error);
         }
       };
+
+      if (myPokemon.length === 0) {
+        return (
+            <><div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
+            <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+                <div className="group relative">
+                    <div className="aspect-h-1 aspect-w-1 w-full my-8 overflow-hidden border-2 border-thirdColor rounded-lg xl:aspect-h-8 xl:aspect-w-7">
+                        <div className="object-contain h-60 w-96 lg:h-90 lg:w-90">
+                        </div>
+                    </div>
+                    <h3 className="mt-4 text-lg text-gray-900 font-bold text-base-100 ml-11">Pokemon don't exist</h3>
+                    <a href='/listpokemons' className='btn btn-sm top-0 right-5 ml-9 bg-thirdColor hover:bg-fourthColor hover:text-neutral-900 border-0'>Go Add Your Pokemon</a>
+                </div>
+            </div>
+            </div></>
+            
+        );
+      }
+      
 
     return (
         <div className="">
