@@ -22,6 +22,7 @@ export default function Login() {
             console.log("token ",response.data.token);
             const token = response.data.token;
             localStorage.setItem("authToken", token);
+            localStorage.setItem("idUserLogged", response.data.id);
             window.location.href = "/"
           })
         .catch((error) => {
