@@ -1,28 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
-function addPokemon(pokemons) {
-    // Ambil data dari local storage (jika ada)
-    const existingData = localStorage.getItem("myPokemon");
+// function addPokemon(pokemons) {
+//     // Ambil data dari local storage (jika ada)
+//     const existingData = localStorage.getItem("myPokemon");
   
-    // Jika data tidak ditemukan, buat array kosong
-    const myPokemon = existingData ? JSON.parse(existingData) : [];
+//     // Jika data tidak ditemukan, buat array kosong
+//     const myPokemon = existingData ? JSON.parse(existingData) : [];
   
-    const isDataExist = myPokemon.some((p) => p.name === pokemons.name);
+//     const isDataExist = myPokemon.some((p) => p.name === pokemons.name);
   
-    if (isDataExist) {
-      alert("Pokemon sudah ada!");
-    } else {
-      // Tambahkan pokemon yang dipilih ke dalam array myPokemon
-      myPokemon.push(pokemons);
-      // Simpan data ke local storage
-      localStorage.setItem("myPokemon", JSON.stringify(myPokemon));
-      // Tampilkan pesan sukses
-      alert("Pokemon berhasil ditambahkan ke koleksi kamu!");
-    }
-  }
+//     if (isDataExist) {
+//       alert("Pokemon sudah ada!");
+//     } else {
+//       // Tambahkan pokemon yang dipilih ke dalam array myPokemon
+//       myPokemon.push(pokemons);
+//       // Simpan data ke local storage
+//       localStorage.setItem("myPokemon", JSON.stringify(myPokemon));
+//       // Tampilkan pesan sukses
+//       alert("Pokemon berhasil ditambahkan ke koleksi kamu!");
+//     }
+//   }
 
 
 function PokemonDetail() {
@@ -36,6 +39,7 @@ function PokemonDetail() {
         getPokemonDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+    
 
     const getPokemonDetail = async () => {
         try {
@@ -63,42 +67,62 @@ function PokemonDetail() {
 
     }
 
+    const addPokemon = async (e,item) => {
+        e.preventDefault();
+        try {
+          const getLocalStorageIdUser = localStorage.getItem('idUserLogged');
+          const data = {
+            id_pokemons: item.id,
+            id_user: getLocalStorageIdUser,
+          };
+
+          const existingDataDb = await axios.get('http://localhost:4000/pokemons/collection', {
+        params: {
+          id_pokemons: item.id,
+          id_user: getLocalStorageIdUser,
+         },
+        });
+    
+        if (existingDataDb.data.data.find(data => data.pokemons_id === item.id)) {
+            toast.error("Pokemon already exists",{
+            autoClose: 200
+            })
+            return;      
+        }
+          
+          const response = await axios.post('http://localhost:4000/pokemons/collection', data);
+          toast.success("Pokemon Added",{
+            autoClose: 1000
+          })
+          console.log('Data berhasil ditambahkan ke database:', response.data);
+        } catch (error) {
+          console.log('Gagal menambahkan data ke database:', error.message);
+        }
+      };
+
     if (!pokemons) {
         return <div>Loading...</div>;
     }
 
     return (
-        <div>
+        <div className=''>
+        <ToastContainer />
         {pokemons.map((item, index) => (
             <div key={index} className="bg-white">
                 <div className="container mx-auto pt-6">
                     {/* Image gallery */}
-                    <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-                        <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+                    <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-4xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+                        <div className="aspect-h-2 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
                             <img
                                 src={item.avatar_url}
                                 alt="img"
-                                className="h-full w-full object-center" />
-                        </div>
-                        <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-                            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                                <img
-                                    src={item.avatar_url}
-                                    alt="img"
-                                    className="h-full w-full object-cover object-center" />
-                            </div>
-                            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                                <img
-                                    src={item.avatar_url}
-                                    alt="img"
-                                    className="h-full w-full object-cover object-center" />
-                            </div>
+                                className="h-auto w-auto object-center" />
                         </div>
                         <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
                             <img
                                 src={item.avatar_url}
                                 alt="img"
-                                className="h-full w-full object-center" />
+                                className="h-auto w-auto object-center" />
                         </div>
                     </div>
 
@@ -115,14 +139,14 @@ function PokemonDetail() {
                                 <button
                                     type="submit"
                                     className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-thirdColor px-8 py-3 text-base font-medium text-base-100 hover:bg-fourthColor hover:text-neutral-800 focus:outline-none focus:ring-2 focus:ring-primaryColor focus:ring-offset-2"
-                                    onClick={() => addPokemon(item)}
+                                    onClick={(e) => addPokemon(e, item)}
                                 >
                                     Add to bag
                                 </button>
                             </form>
                         </div>
 
-                        <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
+                        <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-8 lg:pr-8 lg:pt-6">
                             {/* Description and details */}
                             <div>
                                 <h3 className="font-bold text-base-100">Description</h3>
@@ -132,20 +156,6 @@ function PokemonDetail() {
                                     <h5>{item.ability_pokemon}</h5>
                                 </div>
                             </div>
-
-                            {/* <div className="mt-10">
-                                <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
-
-                                <div className="mt-4">
-                                    <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                                        {product.highlights.map((highlight) => (
-                                            <li key={highlight} className="text-gray-400">
-                                                <span className="text-gray-600">{highlight}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div> */}
 
                             <div className="mt-10">
                                 <h2 className="text-sm font-medium text-base-100">Details</h2>
