@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function Footer() {
     return (
-        <footer className="footer bg-primaryColor text-neutral-content">
+        <footer className="footer bg-gradient-to-r from-gradient2  to-gradient1 text-neutral-content">
             <div className='m-5'>
                 <img src="img/logo.png"></img>
                 <p>Pokedex Ltd.<br />Providing reliable tech since 2023</p>

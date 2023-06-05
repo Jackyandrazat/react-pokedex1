@@ -38,7 +38,7 @@ export default function Register() {
             <h1 className="text-5xl font-bold">Register Account</h1>
             <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
           </div>
-          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-primaryColor">
+          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-gradient-to-br from-gradient1 from-30% via-gradient5 via-60% to-gradient3 to-75%">
             <div className="card-body">
               <h1 className='text-center font-bold text-base-100'>Register Account</h1>
               <form onSubmit={handleSubmit}>
