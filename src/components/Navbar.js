@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { isLoggedIn } from './auth';
 import { logout } from './Logout';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Navbar() {
     const navigate = useNavigate();
@@ -13,19 +15,27 @@ export default function Navbar() {
         navigate('/login')
     };
 
-    const onPressListPokemonsIsUserLoggedIn = () => {
+    const onPressListPokemonsIsUserLoggedIn = (e) => {
+        e.preventDefault();
         if (isUserLoggedIn) {
             navigate('/listpokemons')
         } else {
-            alert('Please login to access this feature.');
+            toast.warn("Please Login to Acces Page!", {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 200
+              });
         }
     }
 
-    const onPressMyPokemonsIsUserLoggedIn = () => {
+    const onPressMyPokemonsIsUserLoggedIn = (e) => {
+        e.preventDefault();
         if (isUserLoggedIn) {
             navigate('/mypokemons')
         } else {
-            alert('Please login to access this feature.');
+            toast.warn("Please Login to Acces Page!", {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 200
+              });
             
         }
     }
@@ -50,7 +60,8 @@ export default function Navbar() {
 
 
     return (
-        <div className="navbar bg-primaryColor">
+        <div className="navbar bg-gradient-to-r from-gradient2  to-gradient1">
+        <ToastContainer />
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-outline bg-primaryColor lg:hidden">

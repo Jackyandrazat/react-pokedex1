@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState }  from 'react'
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -26,19 +28,23 @@ export default function Login() {
             window.location.href = "/"
           })
         .catch((error) => {
-            window.alert("Please Valid Username and Password", error);
+            toast.warn("Username And Password Invalid ", {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 200
+              });
             console.log(error);
         });
     };
     return (
         <div>
             <div className="hero min-h-screen bg-base-200" style={{ backgroundImage: `url("../img/bg.jpg")` }} >
+            <ToastContainer />
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="text-center lg:text-left">
                         <h1 className="text-5xl font-bold">Login Now!</h1>
                         <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                     </div>
-                    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-primaryColor">
+                    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-gradient-to-br from-gradient1 from-30% via-gradient5 via-60% to-gradient3 to-75%">
                     <form onSubmit={handleSubmit} method='post'>
                         <div className="card-body">
                             <div className="form-control">
