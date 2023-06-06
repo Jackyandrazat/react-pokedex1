@@ -11,7 +11,13 @@ export default function MyPokemons() {
 
     const getMyPokemons = async () => {
         try {
-            const response = await axios.get('http://localhost:4000/pokemons/collection');
+        const getAuthToken = localStorage.getItem('authToken')
+        const config = {
+            headers: {
+            Authorization: `Bearer ${getAuthToken}` // Sertakan token autentikasi dalam header permintaan
+            }
+        };
+            const response = await axios.get(`http://localhost:4000/pokemons/collection/`, config);
             console.log('response', response.data);
             const mypokemonList = response.data.data;
             setMyPokemons(mypokemonList);
@@ -42,7 +48,7 @@ export default function MyPokemons() {
 
     const deletePokemon = async (id) => {
         try {
-            console.log("test id :",id);
+        console.log("test id :",id);
           const response = await axios.delete(`http://localhost:4000/pokemons/collection/${id}`);
           toast.success("Pokemon Delete Succes",{
             autoClose: 500
