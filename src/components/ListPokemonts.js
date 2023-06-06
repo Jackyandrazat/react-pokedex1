@@ -3,13 +3,24 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// export const getToken = () => localStorage.getItem('authToken')
+//   ? JSON.parse(localStorage.getItem('authToken'))
+//   : null;
+
+// export const getAuthorizationHeader = () => `Bearer ${getToken()}`;
 
 export default function ListPokemonts() {
   const [pokemons, setPokemons] = useState([]);
 
   const fetchPokemons = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/pokemons');
+      const getAuthToken = localStorage.getItem('authToken')
+      const config = {
+        headers: {
+          Authorization: `Bearer ${getAuthToken}` // Sertakan token autentikasi dalam header permintaan
+        }
+      };
+      const response = await axios.get('http://localhost:4000/pokemons', config);
       console.log('response', response.data);
       const pokemonList = response.data.data;
       setPokemons(pokemonList);
@@ -20,16 +31,27 @@ export default function ListPokemonts() {
 
   const addPokemon = async (item) => {
     try {
-      const getLocalStorageIdUser = localStorage.getItem('idUserLogged');
-      const data = {
+      const getLocalStorageToken = localStorage.getItem('authToken');
+      // let user = JSON.parse(sessionStorage.getItem('data'));
+
+      console.log(getLocalStorageToken, 'auth Token ')
+      const config = {
+        headers: {
+          Authorization: `Bearer ${getLocalStorageToken}`
+        }
+    };
+    
+      const bodyParameters = {
         id_pokemons: item.id,
-        id_user: getLocalStorageIdUser,
       };
+    
   
       const existingDataDb = await axios.get('http://localhost:4000/pokemons/collection', {
+        headers: {
+          Authorization: `Bearer ${getLocalStorageToken}`
+        },  
         params: {
           id_pokemons: item.id,
-          id_user: getLocalStorageIdUser,
          },
       });
   
@@ -39,7 +61,8 @@ export default function ListPokemonts() {
         })
         return;      
       }
-      const response = await axios.post('http://localhost:4000/pokemons/collection', data);
+
+      const response = await axios.post('http://localhost:4000/pokemons/collection', bodyParameters, config);
       toast.success("Pokemon Added",{
         autoClose: 1000
       })
