@@ -12,8 +12,8 @@ function HeroVideo() {
             <div className="card card-side my-5 ">
                 <figure className="card-body w-1/2"><img className='rounded-md' src={require("../img/Hero3-1920x1080.jpg")} alt="Movie" /></figure>
                 <div className="card-body w-1/2">
-                    <h2 className="card-title text-base-100">New movie is released!</h2>
-                    <p className='text-base-100'>Click the button to watch on Jetflix app.</p>
+                    <h2 className="card-title text-white">New movie is released!</h2>
+                    <p className='text-white'>Click the button to watch on Jetflix app.</p>
                     <div className="card-actions justify-end">
                         <button onClick={onPress} className="btn btn-primary bg-thirdColor hover:bg-fourthColor hover:text-neutral-900 border-0">Watch</button>
                     </div>

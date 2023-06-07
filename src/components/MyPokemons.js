@@ -70,7 +70,7 @@ export default function MyPokemons() {
                         <div className="object-contain h-60 w-96 lg:h-90 lg:w-90">
                         </div>
                     </div>
-                    <h3 className="mt-4 text-lg text-gray-900 font-bold text-base-100 ml-11">Pokemon don't exist</h3>
+                    <h3 className="mt-4 text-lg text-gray-900 font-bold text-white ml-11">Pokemon don't exist</h3>
                     <a href='/listpokemons' className='btn btn-sm top-0 right-5 ml-9 bg-thirdColor hover:bg-fourthColor hover:text-neutral-900 border-0'>Go Add Your Pokemon</a>
                 </div>
             </div>
@@ -83,7 +83,7 @@ export default function MyPokemons() {
     return (
         <div className="">
             <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
-                <h1 className="text-base-100 py-5 font-bold text-5xl">My Pokemons</h1>
+                <h1 className="text-white py-5 font-bold text-5xl">My Pokemons</h1>
 
                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                     {myPokemon.map((item, index) => (
@@ -95,7 +95,7 @@ export default function MyPokemons() {
                                     className="object-contain h-48 w-96 lg:h-90 lg:w-90"
                                 />
                             </div>
-                            <h3 className="mt-4 text-lg text-gray-900 font-bold text-base-100">{item.name_pokemon}</h3>
+                            <h3 className="mt-4 text-lg text-gray-900 font-bold text-white">{item.name_pokemon}</h3>
                             <div className="relative">
                                 <button onClick={() => deletePokemon(item.id)} className="btn absolute btn-sm top-0 right-5 bg-thirdColor hover:bg-fourthColor hover:text-neutral-900 border-0">Release</button>
                             </div>

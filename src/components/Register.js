@@ -40,27 +40,27 @@ export default function Register() {
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-gradient-to-br from-gradient1 from-30% via-gradient5 via-60% to-gradient3 to-75%">
             <div className="card-body">
-              <h1 className='text-center font-bold text-base-100'>Register Account</h1>
+              <h1 className='text-center font-bold text-white'>Register Account</h1>
               <form onSubmit={handleSubmit}>
                 {/* <div className="form-control">
                   <label className="label">
-                    <span className="label-text text-base-100">Username</span>
+                    <span className="label-text text-white">Username</span>
                   </label>
                   <input type="text" placeholder="Username" className="input input-bordered" value={username} onChange={e => setUsername(e.target.value)} />
                 </div> */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text text-base-100">Email</span>
+                    <span className="label-text text-white">Email</span>
                   </label>
                   <input type="email" placeholder="email" className="input input-bordered" value={email} onChange={e => setEmail(e.target.value)} />
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text text-base-100">Password</span>
+                    <span className="label-text text-white">Password</span>
                   </label>
                   <input type="password" placeholder="password" className="input input-bordered" value={password} onChange={e => setPassword(e.target.value)} />
                   <label className="label">
-                    <a href="#" className="label-text-alt link link-hover text-base-100">Forgot password?</a>
+                    <a href="#" className="label-text-alt link link-hover text-white">Forgot password?</a>
                   </label>
                 </div>
                 <div className="form-control mt-6">

@@ -89,7 +89,7 @@ export default function ListPokemonts() {
                 className="object-contain h-48 w-96 lg:h-48 lg:w-96"
               />
             </div>
-            <h3 className="mt-4 ml-2 text-lg text-base-100 font-bold">{item.name_pokemon}</h3>
+            <h3 className="mt-4 ml-2 text-lg text-white font-bold">{item.name_pokemon}</h3>
             <div className="mt-5 relative">
               <a href={`/detail/${item.id}`} className="ml-2 text-sm text-thirdColor hover:link-hover">
                 See Details

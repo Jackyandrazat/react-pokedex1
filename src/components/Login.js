@@ -48,25 +48,25 @@ export default function Login() {
                         <div className="card-body">
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text text-base-100">Email</span>
+                                    <span className="label-text text-white">Email</span>
                                 </label>
                                 <input type="text" placeholder="email" className="input input-bordered" value={email} onChange={handleEmailChange} />
                             </div>
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text text-base-100">Password</span>
+                                    <span className="label-text text-white">Password</span>
                                 </label>
                                 <input type="password" placeholder="password" className="input input-bordered" value={password} onChange={handlePasswordChange} />
                                 <label className="label">
-                                    <a href="#" className="label-text-alt text-base-100 link link-hover">Forgot password?</a>
+                                    <a href="#" className="label-text-alt text-white link link-hover">Forgot password?</a>
                                 </label>
                             </div>
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary border-0 bg-thirdColor hover:bg-fourthColor hover:text-neutral-900">Login</button>
                             </div>
-                            <p className="mt-10 text-center text-sm text-base-100">
+                            <p className="mt-10 text-center text-sm text-white">
                                 Belum Bisa Login ya?{' '}
-                                <a href="/register" className="font-semibold leading-6 text-fourthColor hover:text-base-100">
+                                <a href="/register" className="font-semibold leading-6 text-fourthColor hover:text-white">
                                     Daftar Dulu sini
                                 </a>
                             </p>

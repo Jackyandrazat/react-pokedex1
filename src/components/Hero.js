@@ -28,8 +28,8 @@ export default function Hero() {
             <img src={require("../img/pokemonHero.jpeg")} className="max-w-sm rounded-lg shadow-2xl" />
             <img src="img/pokemonHero.jpeg" className="max-w-sm rounded-lg shadow-2xl" />
         <div>
-            <h1 className="text-4xl font-bold text-base-100">Let's Catch Pokemon Now!</h1>
-            <p className="py-6 text-base-100">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+            <h1 className="text-4xl font-bold text-white">Let's Catch Pokemon Now!</h1>
+            <p className="py-6 text-white">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
             <button onClick={onPress} className="btn btn-primary bg-thirdColor border-0 hover:bg-fourthColor hover:text-neutral-900">Get Started</button>
         </div>
         </div>

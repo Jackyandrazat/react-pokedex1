@@ -43,12 +43,12 @@ export default function Navbar() {
     const renderAuthBtn = () => {
         if (isUserLoggedIn) {
             return (
-                <button onClick={handleLogout} className="btn mr-1 bg-thirdColor border-0 hover:bg-fourthColor hover:text-neutral-900">Logout</button>
+                <button onClick={handleLogout} className="btn mr-1 text-white bg-thirdColor border-0 hover:bg-fourthColor hover:text-neutral-900">Logout</button>
             )
             
         } else {
             return (
-                <button onClick={onPressLogin} className="btn mr-1 bg-thirdColor border-0 hover:bg-fourthColor hover:text-neutral-900">Login</button>
+                <button onClick={onPressLogin} className="btn mr-1 text-white bg-thirdColor border-0 hover:bg-fourthColor hover:text-neutral-900">Login</button>
             )
         }
     }
@@ -74,9 +74,9 @@ export default function Navbar() {
                         
                     </ul>
                 </div>
-                <a className="font-bold normal-case text-xl text-base-100 ml-5">PokeDex</a>
+                <a className="font-bold normal-case text-xl text-white ml-5">PokeDex</a>
             </div>
-            <div className="navbar-center text-base-100 hidden lg:flex">
+            <div className="navbar-center text-white hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     <li><Link to="/" className='hover:bg-fourthColor hover:text-neutral-900'>Home</Link></li>
                     <li><Link to="/listpokemons" className='hover:bg-fourthColor hover:text-neutral-900' onClick={onPressListPokemonsIsUserLoggedIn}>List Pokemons</Link></li>
