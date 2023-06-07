@@ -97,7 +97,7 @@ export default function MyPokemons() {
                             </div>
                             <h3 className="mt-4 text-lg text-gray-900 font-bold text-white">{item.name_pokemon}</h3>
                             <div className="relative">
-                                <button onClick={() => deletePokemon(item.id)} className="btn absolute btn-sm top-0 right-5 bg-thirdColor hover:bg-fourthColor hover:text-neutral-900 border-0">Release</button>
+                                <button onClick={() => deletePokemon(item.id)} className="btn absolute btn-sm top-0 right-5 text-white bg-thirdColor hover:bg-fourthColor hover:text-neutral-900 border-0">Release</button>
                             </div>
                         </a>
                     ))}

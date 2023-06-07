@@ -39,7 +39,7 @@ export default function Login() {
             <div className="hero min-h-screen bg-base-200" style={{ backgroundImage: `url("../img/bg.jpg")` }} >
             <ToastContainer />
                 <div className="hero-content flex-col lg:flex-row-reverse">
-                    <div className="text-center lg:text-left">
+                    <div className="text-center text-primaryColor lg:text-left">
                         <h1 className="text-5xl font-bold">Login Now!</h1>
                         <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                     </div>
@@ -50,13 +50,13 @@ export default function Login() {
                                 <label className="label">
                                     <span className="label-text text-white">Email</span>
                                 </label>
-                                <input type="text" placeholder="email" className="input input-bordered" value={email} onChange={handleEmailChange} />
+                                <input type="text" placeholder="email" className="input input-bordered bg-white text-primaryColor" value={email} onChange={handleEmailChange} />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text text-white">Password</span>
                                 </label>
-                                <input type="password" placeholder="password" className="input input-bordered" value={password} onChange={handlePasswordChange} />
+                                <input type="password" placeholder="password" className="input input-bordered bg-white text-primaryColor" value={password} onChange={handlePasswordChange} />
                                 <label className="label">
                                     <a href="#" className="label-text-alt text-white link link-hover">Forgot password?</a>
                                 </label>
